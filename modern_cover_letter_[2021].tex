@@ -1,0 +1,98 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modern Cover Letter
+% LuaLaTeX Template
+% Version 1.12.0 (10/10/2020)
+%
+% Original authors:
+% Ged Lex (gedlex@hotmail.ch)
+%
+% Important note:
+% This template must be compiled with LuaLaTeX, the below lines will ensure this
+%!TEX TS-program = lualatex
+%!TEX encoding = UTF-8 Unicode
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass{modern-cv}       % By default, use 'letterpaper' for US letter
+\usepackage[yyyymmdd]{datetime} % Change the date format
+%\geometry{letterpaper, % paper size
+%          left=1.75cm, right=1.75cm, top=1.5cm, bottom=1.5cm, footskip=.6cm, headsep=.5cm, % margins
+%          showframe}                  % show geometry frame
+%          heightrounded}              % avoid underfull vbox warning
+          
+% Color for highlights
+%\definecolor{highlight}{HTML}{EB9534} % Specify your own color
+%\colorlet{highlight}{white}           % Set predefined color
+% Default colors include: darkgray, gray, lightgray, lightblue, orange, red, concrete
+
+% Colors for text - uncomment and modify
+%\definecolor{darktext}{HTML}{414141}
+%\definecolor{text}{HTML}{414141}
+%\definecolor{graytext}{HTML}{414141}
+%\definecolor{lighttext}{HTML}{414141}
+
+%----------------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%----------------------------------------------------------------------------------------
+\background{pics/background5.pdf}
+\photo[circle,edge,fill,left]{2.5cm}{pics/pp2.pdf}
+\name{Ged}{Lex}
+\address{Turicum, Switzerland}
+\mobile{+01 23 456 78 90}
+\email{gedlex@hotmail.ch}
+%\linkedin{linkedin}
+%\homepage{www.homepage.com}
+%\twitter{@twit}
+%\xing{xing name}
+%\github{githubid}
+%\stackoverflow{SOid}{SOname}
+%\skype{skypeid}
+%\reddit{reddit account}
+%\extrainfo{info}
+
+\position{BSc in Mechanical Engineering} % Your expertise/fields
+\headwords{Engineer, software geek, technical enthusiast and carpenter} % A few headwords to describe yourself
+\quote{"Some men see things as they are, and ask why. I dream of things that never were, and ask why not." - Robert Kennedy} % A quote or statement
+
+%----------------------------------------------------------------------------------------
+%	RECIPIENT/POSITION/LETTER INFORMATION
+%	All of the below lines must be filled out
+%----------------------------------------------------------------------------------------
+\recipient{Doris Johnson}{Initech Inc.}{4120 Freidrich Ln.}{Austin, TX 78744} % The company
+%\letterdate{}                                                                % To change the date
+\lettertitle{Application for the position of Mechanical Engineer}             % The title of the letter
+\letteropening{Dear Ms. Johnson,}                                             % How the letter is opened
+\letterclosing{Sincerely,}                                                    % How the letter is closed
+\letterenclosure[Attachment]{Curriculum Vitae}                                % Enclosures
+  
+%----------------------------------------------------------------------------------------
+\begin{document}
+% Print the header
+% Usage: \makecvheader[<position>]
+\makecvheader[L]
+% Print the title
+\makelettertitle[R]
+
+%----------------------------------------------------------------------------------------
+%	LETTER CONTENT
+%----------------------------------------------------------------------------------------
+\begin{cvletter}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus eu felis ullamcorper finibus. Aenean dictum nunc in tortor facilisis, auctor pulvinar leo volutpat. Aliquam suscipit imperdiet efficitur. In hac habitasse platea dictumst. Fusce placerat quis quam aliquet consequat. Fusce sit amet mauris scelerisque, varius erat non, tempor purus. Mauris imperdiet eget libero eu lacinia. \par\bigskip
+
+Nulla aliquam, lacus sit amet commodo eleifend, sapien lectus feugiat eros, id mattis urna elit vitae arcu. Integer vestibulum imperdiet massa ac consectetur. Duis posuere, mi a pellentesque porta, lacus quam posuere metus, a placerat ex nisi eu turpis. Vestibulum consectetur semper urna, id accumsan magna consequat eget. Integer eget venenatis justo, posuere viverra turpis. In hac habitasse platea dictumst. \par\bigskip
+
+Curabitur ut dictum augue, eu vehicula odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus tempus mollis velit, ac tempus velit finibus non. Cras in consectetur ante. Nulla maximus accumsan nisi, sit amet aliquam augue rutrum eu. Pellentesque ante mauris, vehicula at aliquam ut, euismod id risus. Sed iaculis massa et ultrices faucibus. \par\bigskip
+
+Vestibulum vel pellentesque justo, non mattis lacus. Maecenas elit lorem, tristique eu sem in, tempus vestibulum diam. Donec sollicitudin volutpat orci eget luctus. Pellentesque aliquam auctor dui, non vehicula est blandit eu. \par\bigskip 
+
+Thank you for your consideration. \par\bigskip
+\end{cvletter}
+
+%----------------------------------------------------------------------------------------
+\makeletterclosing % Print the signature and enclosures
+% Usage: \makecvfooter(<left>}{<center>}{<right>)
+\makecvfooter{\today}{Ged Lex~~~·~~~Cover Letter}{\LaTeX{}}
+\end{document}

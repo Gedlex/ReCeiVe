@@ -1,0 +1,97 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modern CV
+% LuaLaTeX Template
+% Version 1.12.0 (10/10/2020)
+%
+% Original authors:
+% Ged Lex (gedlex@hotmail.ch)
+%
+% Important note:
+% This template must be compiled with LuaLaTeX, the below lines will ensure this
+%!TEX TS-program = lualatex
+%!TEX encoding = UTF-8 Unicode
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[rightPos]{modern-cv} % By default, use 'letterpaper' for US letter
+%\geometry{letterpaper, % paper size
+%          left=1.75cm, right=1.75cm, top=1.5cm, bottom=1.5cm, footskip=.6cm, headsep=.5cm, % margins
+%          showframe}                  % show geometry frame
+%          heightrounded}              % avoid underfull vbox warning
+          
+% Color for highlights
+%\definecolor{highlight}{HTML}{EB9534} % Specify your own color
+%\colorlet{highlight}{white}           % Set predefined color
+% Default colors include: darkgray, gray, lightgray, lightblue, orange, red, concrete
+
+% Colors for text - uncomment and modify
+%\definecolor{darktext}{HTML}{414141}
+%\definecolor{text}{HTML}{414141}
+%\definecolor{graytext}{HTML}{414141}
+%\definecolor{lighttext}{HTML}{414141}
+
+%----------------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%----------------------------------------------------------------------------------------
+\background{pics/background5.pdf}
+\photo[circle,edge,fill,left]{2.5cm}{pics/pp2.pdf}
+\name{Ged}{Lex}
+\address{Turicum, Switzerland}
+\mobile{+01 23 456 78 90}
+\email{gedlex@hotmail.ch}
+%\linkedin{linkedin}
+%\homepage{www.homepage.com}
+%\twitter{@twit}
+%\xing{xing name}
+%\github{githubid}
+%\stackoverflow{SOid}{SOname}
+%\skype{skypeid}
+%\reddit{reddit account}
+%\extrainfo{info}
+
+\position{BSc in Mechanical Engineering} % Your expertise/fields
+\headwords{Engineer, software geek, technical enthusiast and carpenter} % A few headwords to describe yourself
+\quote{"Some men see things as they are, and ask why. I dream of things that never were, and ask why not." - Robert Kennedy} % A quote or statement
+
+%----------------------------------------------------------------------------------------
+%	SIDEBAR CONTENT
+%	Fill in the information you would like to add to your sidebar
+%----------------------------------------------------------------------------------------
+
+%\aboutMe{}
+\skillset{{MATLAB/.9},{Python/.5},{VBA/.8},{Java/.5},{C++/.4}}
+\languages{{English/Fluent (C1 Certificate)},{German/Mother tongue},{French/Conversational}}
+\hobbies{Lorem ipsum dolor sit amet, consectetur adipiscing elit}
+\nonProfit{%
+	\begin{itemize}
+	\item{Lorem ipsum dolor sit amet}
+	\item{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus eu felis ullamcorper finibus.}
+	\end{itemize}
+}
+% Usage: \userSection[<section title>]{<content>}
+% \userSection[title]{content}
+
+%----------------------------------------------------------------------------------------
+\begin{document}
+% Print the header
+% Usage: \makecvheader[<position>]
+\makecvheader[L]
+% Print the sidebar
+\makecvsidebar
+
+%----------------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%	Each section is imported separately, open each file in order to modify it
+%----------------------------------------------------------------------------------------
+\input{cvSections/education.tex}
+\input{cvSections/professionalExperience.tex}
+\input{cvSections/compulsoryService.tex}
+
+%----------------------------------------------------------------------------------------
+% Usage: \makecvfooter(<left>}{<center>}{<right>)
+\makecvfooter{\today}{Ged Lex~~~·~~~CV}{\LaTeX{}}
+\end{document}
+

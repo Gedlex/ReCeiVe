@@ -1,0 +1,41 @@
+\section{Professional Experience}
+\cventry
+{Internship as Test Engineer} % Job Title
+{Company Switzerland AG} % Organization
+{Turicum, CH} % Location
+{11/2020 - today} % Date
+\begin{cvitems}
+\item {Testing and QA}
+\item {Failure Analysis}
+\item {Lifetime prediction}
+\item {Software technical implementation}
+\end{cvitems}
+
+\cventry
+{Internship as Mechanical Manufacturer} % Job Title
+{Company Switzerland AG} % Organization
+{Turicum, CH} % Location
+{07/2019 - 09/2019} % Date
+\begin{cvitems}
+\item {Conventional turning and milling}
+\item {Electropolishing and finishing}
+\end{cvitems}
+
+\cventry
+{Licensed Carpenter} % Job Title
+{Holzbau GmbH} % Organization
+{Turicum, CH} % Location
+{07/2018 - 09/2018} % Date
+\begin{cvitems}
+\item {General timber construction works}
+\end{cvitems}
+
+\cventry
+{Licensed Carpenter} % Job Title
+{Holzbau Gmb} % Organization
+{Turicum, CH} % Location
+{08/2012 - 08/2017} % Date
+\begin{cvitems}
+\item {General timber construction works}
+\item {Tutoring of an apprentice}
+\end{cvitems}
