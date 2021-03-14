@@ -245,6 +245,9 @@
 \newcommand{\acvSectionTopSkip}{3mm}
 \newcommand{\acvSectionContentTopSkip}{2.5mm}
 
+% Cover letter
+\newcommand{\acvSignatureSkip}{20pt}
+
 %-------------------------------------------------------------------------------
 %				Commands for utility
 %-------------------------------------------------------------------------------
@@ -282,7 +285,7 @@
 %				Commands for personal information
 %-------------------------------------------------------------------------------
 % Define photo ID
-% Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right}{size,<path-to-image>}
+% Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right]{size,<path-to-image>}
 \newlength{\@photosize}
 \newcommand{\photo}[3][circle,edge,left]{%
   \setlength{\@photosize}{#2}\def\@photo{#3}%
@@ -670,24 +673,40 @@
 	}}
 }
 
-\newcommand*{\makecvsidebar}{%
+% Usage: \makecvsidebar[xOffset/value,yOffset/value,noRadius|radius]
+\newcommand*{\makecvsidebar}[1][]{%
 	\ifthenelse{\isundefined{\@headerheight}}{%
 		\ClassWarning{modern-cv}{Warning: headerheight is undefined. Use makecvheader before using makecvsidebar.}%
-	}{%
+	}{%		
 		\ifthenelse{\isundefined{\@sidebarPos}}{%
 		}{%  Create lengths
+			\newlength{\@xOffset}
+			\newlength{\@yOffset}
+			\newlength{\@corner}
 			\newlength{\@xPosSidebar}
 			\newlength{\@yPosSidebar}
 			\newlength{\@sidebarHeight}
 			\newlength{\@textblockWidth}
+			\setlength{\@corner}{0.5cm}
+			
+			% Get optional arguments
+			\foreach \argName/\value in {#1}{%
+				\ifthenelse{\equal{\argName}{xOffset}}{%
+					\setlength{\global\@xOffset}{\value}}{}%
+				\ifthenelse{\equal{\argName}{yOffset}}{%
+					\setlength{\global\@yOffset}{\value}}{}%
+				\ifthenelse{\equal{\argName}{noRadius}}{%
+					\setlength{\global\@corner}{0pt}}{}%
+			}%
+			
 			% Set lengths
-			\setlength{\@sidebarHeight}{\textheight-\@headerheight-\lineskip}
-			\setlength{\@yPosSidebar}{\@topMarg+\@headerheight+\lineskip}
+			\setlength{\@sidebarHeight}{\textheight-\@headerheight-\lineskip-\@yOffset}
+			\setlength{\@yPosSidebar}{\@topMarg+\@headerheight+\lineskip+\@yOffset}
 			\setlength{\@textblockWidth}{\@sidebarWidth-2\acvSidebarInnerSep}
 			\ifthenelse{\equal{\@sidebarPos}{left}}{%
-				\setlength{\@xPosSidebar}{\@leftMarg}
+				\setlength{\@xPosSidebar}{\@leftMarg+\@xOffset}
 			}{%
-				\setlength{\@xPosSidebar}{\@leftMarg+\textwidth+\acvSidebarSep}
+				\setlength{\@xPosSidebar}{\@leftMarg+\textwidth+\acvSidebarSep+\@xOffset}
 			}
 			\newsavebox{\sidebarBox}
 			\sbox{\sidebarBox}{
@@ -747,7 +766,7 @@
 			}
 			
 			\begin{tikzpicture}[remember picture,overlay]%
-				\node [rectangle, fill=lightgray, rounded corners=0.5cm, anchor=north west, shift={(\@xPosSidebar,-\@yPosSidebar)}, minimum width=\@sidebarWidth, minimum height=\@sidebarHeight](sidebarBackground) at (current page.north west){};
+				\node [rectangle, fill=lightgray, rounded corners=\@corner, anchor=north west, shift={(\@xPosSidebar,-\@yPosSidebar)}, minimum width=\@sidebarWidth, minimum height=\@sidebarHeight](sidebarBackground) at (current page.north west){};
 				\node [anchor=north, yshift=-0.65\acvSidebarInnerSep] at (sidebarBackground.north){\usebox\sidebarBox};%
 			\end{tikzpicture}%
 		}
@@ -930,7 +949,7 @@
 % Usage: \makeletterclosing
 \newcommand*{\makeletterclosing}{%
   \vspace{3.5mm}
-  \lettertextstyle{\@letterclosing} \\[10pt]
+  \lettertextstyle{\@letterclosing} \\[\acvSignatureSkip]
   \letternamestyle{\@firstname\ \@lastname}
   \ifthenelse{\isundefined{\@letterenclosure}}{}{%
       \\[20pt]
