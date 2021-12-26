@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Modern CV
+% ReCeiVe Cover Letter
 % LuaLaTeX Template
 % Version 1.12.0 (10/10/2020)
 %
@@ -15,7 +15,8 @@
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
-\documentclass[rightPos]{modern-cv} % By default, use 'letterpaper' for US letter
+\documentclass{ReCeiVe}         % By default, use 'letterpaper' for US letter
+\usepackage[yyyymmdd]{datetime} % Change the date format
 %\geometry{letterpaper, % paper size
 %          left=1.75cm, right=1.75cm, top=1.5cm, bottom=1.5cm, footskip=.6cm, headsep=.5cm, % margins
 %          showframe}                  % show geometry frame
@@ -57,42 +58,41 @@
 \quote{"Some men see things as they are, and ask why. I dream of things that never were, and ask why not." - Robert Kennedy} % A quote or statement
 
 %----------------------------------------------------------------------------------------
-%	SIDEBAR CONTENT
-%	Fill in the information you would like to add to your sidebar
+%	RECIPIENT/POSITION/LETTER INFORMATION
+%	All of the below lines must be filled out
 %----------------------------------------------------------------------------------------
-
-\aboutMe{Engineer, software geek, technical enthusiast and carpenter}
-\skillset{MATLAB/.9,Python/.5,VBA/.8,Java/.5,C++/.4}
-\languages{{English/Fluent (C1 Certificate)},{German/Mother tongue},{French/Conversational}}
-\hobbies{Lorem ipsum dolor sit amet, consectetur adipiscing elit}
-\nonProfit{%
-	\begin{itemize}
-	\item{Lorem ipsum dolor sit amet}
-	\item{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus eu felis ullamcorper finibus.}
-	\end{itemize}
-}
-% Usage: \userSection[<section title>]{<content>}
-% \userSection[title]{content}
-
+\recipient{Doris Johnson}{Initech Inc.}{4120 Freidrich Ln.}{Austin, TX 78744} % The company
+%\letterdate{}                                                                % To change the date
+\lettertitle{Application for the position of Mechanical Engineer}             % The title of the letter
+\letteropening{Dear Ms. Johnson,}                                             % How the letter is opened
+\letterclosing{Sincerely,}                                                    % How the letter is closed
+\letterenclosure[Attachment]{Curriculum Vitae}                                % Enclosures
+  
 %----------------------------------------------------------------------------------------
 \begin{document}
 % Print the header
 % Usage: \makecvheader[<position>]
 \makecvheader[L]
-% Print the sidebar
-% Usage: \makecvsidebar[xOffset/value,yOffset/value,noRadius|radius]
-\makecvsidebar
+% Print the title
+\makelettertitle[R]
 
 %----------------------------------------------------------------------------------------
-%	CV/RESUME CONTENT
-%	Each section is imported separately, open each file in order to modify it
+%	LETTER CONTENT
 %----------------------------------------------------------------------------------------
-\input{cvSections/education.tex}
-\input{cvSections/professionalExperience.tex}
-\input{cvSections/compulsoryService.tex}
+\begin{cvletter}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus eu felis ullamcorper finibus. Aenean dictum nunc in tortor facilisis, auctor pulvinar leo volutpat. Aliquam suscipit imperdiet efficitur. In hac habitasse platea dictumst. Fusce placerat quis quam aliquet consequat. Fusce sit amet mauris scelerisque, varius erat non, tempor purus. Mauris imperdiet eget libero eu lacinia. \par\bigskip
+
+Nulla aliquam, lacus sit amet commodo eleifend, sapien lectus feugiat eros, id mattis urna elit vitae arcu. Integer vestibulum imperdiet massa ac consectetur. Duis posuere, mi a pellentesque porta, lacus quam posuere metus, a placerat ex nisi eu turpis. Vestibulum consectetur semper urna, id accumsan magna consequat eget. Integer eget venenatis justo, posuere viverra turpis. In hac habitasse platea dictumst. \par\bigskip
+
+Curabitur ut dictum augue, eu vehicula odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus tempus mollis velit, ac tempus velit finibus non. Cras in consectetur ante. Nulla maximus accumsan nisi, sit amet aliquam augue rutrum eu. Pellentesque ante mauris, vehicula at aliquam ut, euismod id risus. Sed iaculis massa et ultrices faucibus. \par\bigskip
+
+Vestibulum vel pellentesque justo, non mattis lacus. Maecenas elit lorem, tristique eu sem in, tempus vestibulum diam. Donec sollicitudin volutpat orci eget luctus. Pellentesque aliquam auctor dui, non vehicula est blandit eu. \par\bigskip 
+
+Thank you for your consideration. \par\bigskip
+\end{cvletter}
 
 %----------------------------------------------------------------------------------------
+\makeletterclosing % Print the signature and enclosures
 % Usage: \makecvfooter(<left>}{<center>}{<right>)
-\makecvfooter{\today}{Ged Lex~~~·~~~CV}{\LaTeX{}}
+\makecvfooter{\today}{Ged Lex~~~·~~~Cover Letter}{\LaTeX{}}
 \end{document}
-
