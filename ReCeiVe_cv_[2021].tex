@@ -37,6 +37,7 @@
 %	Comment any of the lines below if they are not required
 %----------------------------------------------------------------------------------------
 \background{pics/background5.pdf}
+% Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right]{size,<path-to-image>}
 \photo[circle,edge,fill,left]{2.5cm}{pics/pp2.pdf}
 \name{Ged}{Lex}
 \address{Turicum, Switzerland}
@@ -84,6 +85,10 @@
 \makecvsidebar
 
 %----------------------------------------------------------------------------------------
+% Usage: \makecvfooter(<left>}{<center>}{<right>)
+\makecvfooter{\today}{Ged Lex~~~·~~~CV}{\LaTeX{}}
+
+%----------------------------------------------------------------------------------------
 %	CV/RESUME CONTENT
 %	Each section is imported separately, open each file in order to modify it
 %----------------------------------------------------------------------------------------
@@ -92,7 +97,25 @@
 \input{cvSections/honors.tex}
 
 %----------------------------------------------------------------------------------------
-% Usage: \makecvfooter(<left>}{<center>}{<right>)
-\makecvfooter{\today}{Ged Lex~~~·~~~CV}{\LaTeX{}}
-\end{document}
+%	SECOND PAGE
+%----------------------------------------------------------------------------------------
+\pagebreak
+% Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right]{size,<path>}
+\photo[rectangle,edge,fill,left]{2.5cm}{pics/pp2.pdf}
+\aboutMe{Something else}
+\skillset[label/0\hfill +500 h]{Ansys/.3,Abaqus/.5,Catia/.6}
+\languages{{Russian/Non},{Italian/Non}}
+\hobbies{\LaTeX{} or somewhat}
+\nonProfit{%
+	\begin{itemize}
+	\item{Hello}
+	\item{World}
+	\end{itemize}
+	}
+% Usage: \makecvheader[<position>]
+\makecvheader[C]
 
+% Usage: \makecvsidebar[xOffset/value,yOffset/value,noRadius|radius]
+\makecvsidebar
+
+\end{document}

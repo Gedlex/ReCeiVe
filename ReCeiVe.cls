@@ -287,6 +287,9 @@
 % Redefine list environments
 \setlist[itemize]{leftmargin=3ex, nosep, itemsep=1ex, label=\bullet}
 
+% Measure remaining page height
+\newcommand*{\measurepage}{\dimexpr\pagegoal-\pagetotal-\baselineskip\relax}
+
 %-------------------------------------------------------------------------------
 %				Commands for personal information
 %-------------------------------------------------------------------------------
@@ -348,7 +351,8 @@
 % Usage: \languages{{<language1/level1>},{<language2/level2>}, ect.}
 \newcommand*{\languages}[2][Languages]{%
 	\def\@languagestitle{#1}
-	\providecommand*{\@languagesContent}{%
+	\providecommand*{\@languagesContent}{}%
+	\renewcommand*{\@languagesContent}{%
 		\foreach \language/\level in {#2}{%
    			\languagestyle{\language}\@ \acvSidebarLanguageSep \levelstyle{\level} \par
 		}
@@ -496,11 +500,14 @@
 % Define a header for CV
 % Usage: \makecvheader[<left|center>]
 \newcommand*{\makecvheader}[1][L]{%
-	\newcommand*{\drawphoto}{%
+	\providecommand*{\drawphoto}{}
+	\renewcommand*{\drawphoto}{%
 		\ifthenelse{\isundefined{\@photo}}
 			{}{%
-			\newlength{\@edgeradius}
-			\newlength{\@photowidth}
+			\ifthenelse{\isundefined{\@edgeradius}}{%
+				\newlength{\@edgeradius}
+				\newlength{\@photowidth}
+			}{}
 			\ifthenelse{\equal{\@photoshape}{circle}}{%
 				\setlength{\@photowidth}{\@photosize}
 				\setlength{\@edgeradius}{0cm}}{%
@@ -522,7 +529,8 @@
 		}
 	}
 	%
-	\newcommand*{\@headersocial}[3][unframed]{%
+	\providecommand*{\@headersocial}{}
+	\renewcommand*{\@headersocial}[3][unframed]{%
 		\global\boolfalse{startflag}% reset startflag
 		\ifthenelse{\isundefined{\@address}}%
 			{}{%
@@ -592,10 +600,12 @@
 	} 
 	%
 	% Initialize lengths
-	\newlength{\@headerheight}
-	\newlength{\@headertextwidth}
-	\newlength{\@headerleftbox}
-	\newlength{\@headerrightbox}
+	\ifthenelse{\isundefined{\@headerheight}}{%
+		\newlength{\@headerheight}
+		\newlength{\@headertextwidth}
+		\newlength{\@headerleftbox}
+		\newlength{\@headerrightbox}
+	}{}
 	% Set lengths
 	\setlength{\@headertextwidth}{\@headerWidth}%
 	\ifthenelse{\equal{#1}{L}}{%
@@ -643,7 +653,7 @@
 	\end{minipage}%
 	}
 	% Measure cv header height
-	\setlength{\@headerheight}{\ht\headerbox+\dp\headerbox}
+	\setlength{\@headerheight}{\ht\headerbox+\dp\headerbox+\baselineskip}
 	%
 	% Set makebox position
 	\ifthenelse{\isundefined{\@sidebarPos}}{%
@@ -686,15 +696,14 @@
 	}
 	\end{minipage}
 	}}
+	\undef\headerbox
 }
 
 % Usage: \makecvsidebar[xOffset/value,yOffset/value,noRadius|radius]
-\newcommand*{\makecvsidebar}[1][]{%
-	\ifthenelse{\isundefined{\@headerheight}}{%
-		\ClassWarning{ReCeiVe}{Warning: headerheight is undefined. Use makecvheader before using makecvsidebar.}%
-	}{%		
-		\ifthenelse{\isundefined{\@sidebarPos}}{%
-		}{%  Create lengths
+\newcommand*{\makecvsidebar}[1][]{%	
+	\ifthenelse{\isundefined{\@sidebarPos}}{%
+	}{%  Create lengths
+		\ifthenelse{\isundefined{\@xPosSidebar}}{%
 			\newlength{\@xOffset}
 			\newlength{\@yOffset}
 			\newlength{\@corner}
@@ -703,92 +712,112 @@
 			\newlength{\@sidebarHeight}
 			\newlength{\@textblockWidth}
 			\setlength{\@corner}{0.5cm}
-			
-			% Get optional arguments
-			\foreach \argName/\value in {#1}{%
-				\ifthenelse{\equal{\argName}{xOffset}}{%
-					\setlength{\global\@xOffset}{\value}}{}%
-				\ifthenelse{\equal{\argName}{yOffset}}{%
-					\setlength{\global\@yOffset}{\value}}{}%
-				\ifthenelse{\equal{\argName}{noRadius}}{%
-					\setlength{\global\@corner}{0pt}}{}%
-			}%
-			
-			% Set lengths
-			\setlength{\@sidebarHeight}{\textheight-\@headerheight-\lineskip-\@yOffset}
-			\setlength{\@yPosSidebar}{\@topMarg+\@headerheight+\lineskip+\@yOffset}
-			\setlength{\@textblockWidth}{\@sidebarWidth-2\acvSidebarInnerSep}
-			\ifthenelse{\equal{\@sidebarPos}{left}}{%
-				\setlength{\@xPosSidebar}{\@leftMarg+\@xOffset}
-			}{%
-				\setlength{\@xPosSidebar}{\@leftMarg+\textwidth+\acvSidebarSep+\@xOffset}
-			}
-			\newsavebox{\sidebarBox}
-			\sbox{\sidebarBox}{
-			\begin{minipage}[t]{\@textblockWidth}
-				\leavevmode % Enter horizontal mode
-				\ifthenelse{\isundefined{\@photo}}{%
-				}{%
-					\ifthenelse{\isundefined{\@edgeradius}}{%
-						{\centering\drawphoto\par}
-						\vspace{\acvSectionTopSkip}
-						}{}
-				}
-				\ifthenelse{\isundefined{\@aboutMe}}{%
-					}{%
-					\vspace{-\acvSectionTopSkip}%
-					\section{\@aboutMetitle}%
-					\vspace{\acvSectionContentTopSkip}%
-					{\justify\sidebarstyle{\@aboutMe}\par}%
-				}
-				\ifthenelse{\isundefined{\skills}}%
-					{}{%
-					\section{\@skillstitle}%
-					\vspace{\acvSectionContentTopSkip}%
-					\skillsetstyle{%
-					\skills{\@textblockWidth}%
-					}%
-					\ifthenelse{\isundefined{\@skillslabel}}
-					{\vspace{-10pt}
-					}{%
-					{\sidebarstyle{\@skillslabel}}%
-					}%
-				}
-				\ifthenelse{\isundefined{\@userContent}}%
-					{}{%
-					\ifthenelse{\equal{\@userTitle}{}}%
-						{}{%
-						\section{\@userTitle}%
-						\vspace{\acvSectionContentTopSkip}%
-					}
-					{\justify\sidebarstyle{\@userContent}\par}%
-				}
-				\ifthenelse{\isundefined{\@languagestitle}}%
-					{}{%
-					\section{\@languagestitle}%		
-					\vspace{\acvSectionContentTopSkip}%
-					\@languagesContent%
-				}
-				\ifthenelse{\isundefined{\@hobbies}}%
-					{}{%
-					\section{\@hobbiestitle}%
-					\vspace{\acvSectionContentTopSkip}%
-					{\justify\sidebarstyle{\@hobbies}\par}%
-				}
-				\ifthenelse{\isundefined{\@nonProfit}}%
-					{}{%
-					\section{\@nonProfittitle}%
-					\vspace{\acvSectionContentTopSkip}%
-					{\justify\sidebarstyle{\@nonProfit}\par}%
-				}
-			\end{minipage}
-			}
-			
-			\begin{tikzpicture}[remember picture,overlay]%
-				\node [rectangle, fill=lightgray, rounded corners=\@corner, anchor=north west, shift={(\@xPosSidebar,-\@yPosSidebar)}, minimum width=\@sidebarWidth, minimum height=\@sidebarHeight](sidebarBackground) at (current page.north west){};
-				\node [anchor=north, yshift=-0.65\acvSidebarInnerSep] at (sidebarBackground.north){\usebox\sidebarBox};%
-			\end{tikzpicture}%
+		}%
+		
+		% Get optional arguments
+		\foreach \argName/\value in {#1}{%
+			\ifthenelse{\equal{\argName}{xOffset}}{%
+				\setlength{\global\@xOffset}{\value}}{}%
+			\ifthenelse{\equal{\argName}{yOffset}}{%
+				\setlength{\global\@yOffset}{\value}}{}%
+			\ifthenelse{\equal{\argName}{noRadius}}{%
+				\setlength{\global\@corner}{0pt}}{}%
+		}%
+		
+		% Set lengths
+		\ifthenelse{\isundefined{\@headerheight}}{%
+			\ClassWarning{ReCeiVe}{Warning: headerheight is undefined. Use makecvheader before using makecvsidebar.}%
+			\setlength{\@sidebarHeight}{\textheight-\@yOffset}
+			\setlength{\@yPosSidebar}{\@topMarg+\@yOffset}
+		}{%
+			\setlength{\@sidebarHeight}{\textheight-\@headerheight-\@yOffset}
+			\setlength{\@yPosSidebar}{\@topMarg+\@headerheight+\@yOffset}
 		}
+		\setlength{\@textblockWidth}{\@sidebarWidth-2\acvSidebarInnerSep}
+		\ifthenelse{\equal{\@sidebarPos}{left}}{%
+			\setlength{\@xPosSidebar}{\@leftMarg+\@xOffset}
+		}{%
+			\setlength{\@xPosSidebar}{\@leftMarg+\textwidth+\acvSidebarSep+\@xOffset}
+		}
+
+		\newsavebox{\sidebarBox}%
+		\sbox{\sidebarBox}{
+		\begin{minipage}[t]{\@textblockWidth}
+			\leavevmode % Enter horizontal mode
+			\ifthenelse{\isundefined{\@photo}}{%
+			}{%
+				\ifthenelse{\isundefined{\@edgeradius}}{%
+					{\centering\drawphoto\par}
+					\vspace{\acvSectionTopSkip}
+					}{}
+			}
+			\ifthenelse{\isundefined{\@aboutMe}}{%
+				}{%
+				\vspace{-\acvSectionTopSkip}%
+				\section{\@aboutMetitle}%
+				\vspace{\acvSectionContentTopSkip}%
+				{\justify\sidebarstyle{\@aboutMe}\par}%
+			}
+			\ifthenelse{\isundefined{\skills}}%
+				{}{%
+				\section{\@skillstitle}%
+				\vspace{\acvSectionContentTopSkip}%
+				\skillsetstyle{%
+				\skills{\@textblockWidth}%
+				}%
+				\ifthenelse{\isundefined{\@skillslabel}}
+				{\vspace{-10pt}
+				}{%
+				{\sidebarstyle{\@skillslabel}}%
+				}%
+			}
+			\ifthenelse{\isundefined{\@userContent}}%
+				{}{%
+				\ifthenelse{\equal{\@userTitle}{}}%
+					{}{%
+					\section{\@userTitle}%
+					\vspace{\acvSectionContentTopSkip}%
+				}
+				{\justify\sidebarstyle{\@userContent}\par}%
+			}
+			\ifthenelse{\isundefined{\@languagestitle}}%
+				{}{%
+				\section{\@languagestitle}%		
+				\vspace{\acvSectionContentTopSkip}%
+				\@languagesContent%
+			}
+			\ifthenelse{\isundefined{\@hobbies}}%
+				{}{%
+				\section{\@hobbiestitle}%
+				\vspace{\acvSectionContentTopSkip}%
+				{\justify\sidebarstyle{\@hobbies}\par}%
+			}
+			\ifthenelse{\isundefined{\@nonProfit}}%
+				{}{%
+				\section{\@nonProfittitle}%
+				\vspace{\acvSectionContentTopSkip}%
+				{\justify\sidebarstyle{\@nonProfit}\par}%
+			}
+		\end{minipage}
+		}
+		
+		\begin{tikzpicture}[remember picture,overlay]%
+			\node [rectangle, fill=lightgray, rounded corners=\@corner, anchor=north west, shift={(\@xPosSidebar,-\@yPosSidebar)}, minimum width=\@sidebarWidth, minimum height=\@sidebarHeight](sidebarBackground) at (current page.north west){};
+			\node [anchor=north, yshift=-0.65\acvSidebarInnerSep] at (sidebarBackground.north){\usebox\sidebarBox};%
+		\end{tikzpicture}%
+		
+		% Delete objects
+		\undef\sidebarBox
+		\undef\@photo
+		\undef\@aboutMe
+		\undef\skills
+		\undef\@userContent
+		\undef\@languagestitle
+		\undef\@hobbies
+		\undef\@nonProfit
+		
+		% Reset headerheight
+		\setlength{\@headerheight}{0pt}
 	}
 }
 
