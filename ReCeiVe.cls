@@ -43,6 +43,8 @@
 \RequirePackage{graphicx}
 % Create a background, sidebar, ect.
 \RequirePackage{tikz}
+% Execute code on every page
+\RequirePackage{atbegshi}
 % Change date format
 \RequirePackage[yyyymmdd]{datetime}	  
 % Handle list environments
@@ -287,36 +289,73 @@
 % Redefine list environments
 \setlist[itemize]{leftmargin=3ex, nosep, itemsep=1ex, label=\bullet}
 
-% Measure remaining page height
-\newcommand*{\measurepage}{\dimexpr\pagegoal-\pagetotal-\baselineskip\relax}
+% Draw CV background
+% Usage: \drawbackground[<opacity>]{source}
+\newcommand*{\drawbackground}[2][0.15]{%
+	\begin{tikzpicture}[remember picture,overlay]%
+		{\node[opacity=#1] at (current page.center)%
+		{\includegraphics[width=\paperwidth,height=\paperheight]{#2}};}%
+	\end{tikzpicture}%
+}
+
+% Draw CV photo
+% Usage: \drawphoto{}
+\newlength{\@edgeradius}
+\newlength{\@photowidth}
+\newcommand*{\drawphoto}{%
+	\ifthenelse{\isundefined{\@photo}}
+		{}{%
+		\ifthenelse{\equal{\@photoshape}{circle}}{%
+			\setlength{\@photowidth}{\@photosize}
+			\setlength{\@edgeradius}{0cm}}{%
+			\settowidth{\@photowidth}{\includegraphics[height=\@photosize]{\@photo}}
+			\setlength{\@edgeradius}{0.2\@photosize}}%
+		\ifthenelse{\equal{\@photoedge}{edge}}{%
+			\def\@photoborder{darkgray}}{%
+			\def\@photoborder{none}}%
+		\ifthenelse{\equal{\@photofill}{fill}}{%
+			\def\@photofillcolor{highlight}}{%
+			\def\@photofillcolor{none}}%
+		\begin{tikzpicture}
+		\node [\@photoshape, draw=\@photoborder, fill=\@photofillcolor, line width=0.3mm, minimum height = \@photosize,
+			  minimum width=\@photowidth, rounded corners=\@edgeradius,
+			  path picture ={\node [xshift=0cm, yshift=0cm] at (path picture bounding box.center)
+			  {\includegraphics[height=\@photosize]{\@photo}};
+			}]{};
+		\end{tikzpicture}
+	}
+}
 
 %-------------------------------------------------------------------------------
 %				Commands for personal information
 %-------------------------------------------------------------------------------
 % Define photo ID
-% Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right]{size,<path-to-image>}
-\newlength{\@photosize}
-\newcommand{\photo}[3][circle,edge,left]{%
-  \setlength{\@photosize}{#2}\def\@photo{#3}%
-  \@for\tmp:=#1\do{%
-	\ifthenelse{\equal{\tmp}{circle} \or \equal{\tmp}{rectangle}}%
-	  {\let\@photoshape\tmp}{}%
-	\ifthenelse{\equal{\tmp}{edge} \or \equal{\tmp}{noedge}}%
-	  {\let\@photoedge\tmp}{}%
-	\ifthenelse{\equal{\tmp}{fill} \or \equal{\tmp}{nofill}}%
-	  {\let\@photofill\tmp}{}%
-	\ifthenelse{\equal{\tmp}{left} \or \equal{\tmp}{right}}%
-	  {\let\@photoalign\tmp}{}%
-  }%
-}
+% Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right|sidebar]{size,<path-to-image>}
 \def\@photoshape{circle}
 \def\@photoedge{edge}
 \def\@photofill{fill}
-\def\@photoalign{left}
+\def\@photoalign{sidebar}
+\newlength{\@photosize}
+\newcommand{\photo}[3][circle,edge,left]{%
+	\def\@photo{#3}%
+	\setlength{\@photosize}{#2}
+	\@for\tmp:=#1\do{%
+	\ifthenelse{\equal{\tmp}{circle} \or \equal{\tmp}{rectangle}}%
+		{\let\@photoshape\tmp}{}%
+	\ifthenelse{\equal{\tmp}{edge} \or \equal{\tmp}{noedge}}%
+		{\let\@photoedge\tmp}{}%
+	\ifthenelse{\equal{\tmp}{fill} \or \equal{\tmp}{nofill}}%
+		{\let\@photofill\tmp}{}%
+	\ifthenelse{\equal{\tmp}{left} \or \equal{\tmp}{right} \or \equal{\tmp}{sidebar}}%
+		{\let\@photoalign\tmp}{}%
+	}%
+}
 
 % Define background from picture library (optional)
-% Usage: \background{<pics/pic>}
-\newcommand*{\background}[1]{\def\@background{#1}}
+% Usage: \background[<opacity>]{<pics/pic>}
+\newcommand*{\background}[2][0.15]{%
+	\AtBeginShipout{\AtBeginShipoutUpperLeft{\drawbackground[#1]{#2}}}
+}
 
 % Define about me section (optional)
 % Usage: \aboutMe{<content>}
@@ -485,50 +524,9 @@
 %				Commands for CV structure
 %-------------------------------------------------------------------------------
 
-% Draw CV background
-% Usage: \drawbackground[<opacity>]
-\newcommand*{\drawbackground}[1][0.15]{%
-	\ifthenelse{\isundefined{\@background}}{%
-	}{%
-		\begin{tikzpicture}[remember picture,overlay]%
-			{\node[opacity=#1] at (current page.center)%
-			{\includegraphics[width=\paperwidth,height=\paperheight]{\@background}};}%
-		\end{tikzpicture}%
-	}%
-}
-
 % Define a header for CV
 % Usage: \makecvheader[<left|center>]
 \newcommand*{\makecvheader}[1][L]{%
-	\providecommand*{\drawphoto}{}
-	\renewcommand*{\drawphoto}{%
-		\ifthenelse{\isundefined{\@photo}}
-			{}{%
-			\ifthenelse{\isundefined{\@edgeradius}}{%
-				\newlength{\@edgeradius}
-				\newlength{\@photowidth}
-			}{}
-			\ifthenelse{\equal{\@photoshape}{circle}}{%
-				\setlength{\@photowidth}{\@photosize}
-				\setlength{\@edgeradius}{0cm}}{%
-				\settowidth{\@photowidth}{\includegraphics[height=\@photosize]{\@photo}}
-				\setlength{\@edgeradius}{0.2\@photosize}}%
-			\ifthenelse{\equal{\@photoedge}{edge}}{%
-				\def\@photoborder{darkgray}}{%
-				\def\@photoborder{none}}%
-			\ifthenelse{\equal{\@photofill}{fill}}{%
-				\def\@photofillcolor{highlight}}{%
-				\def\@photofillcolor{none}}%
-			\begin{tikzpicture}
-			\node [\@photoshape, draw=\@photoborder, fill=\@photofillcolor, line width=0.3mm, minimum height = \@photosize,
-				  minimum width=\@photowidth, rounded corners=\@edgeradius,
-				  path picture ={\node [xshift=0cm, yshift=0cm] at (path picture bounding box.center)
-				  {\includegraphics[height=\@photosize]{\@photo}};
-				}]{};
-			\end{tikzpicture}
-		}
-	}
-	%
 	\providecommand*{\@headersocial}{}
 	\renewcommand*{\@headersocial}[3][unframed]{%
 		\global\boolfalse{startflag}% reset startflag
@@ -665,8 +663,6 @@
 			\def\@boxPos{l}
 		}
 	}
-	% Draw cv background
-	\drawbackground%
 	%
 	% Draw entire cv header
 	\makebox[\textwidth][\@boxPos]{\makebox[\@headerWidth]{%
@@ -674,7 +670,8 @@
 	\begin{minipage}[c]{\@headerleftbox}%
 		\ifthenelse{\equal{\@photoalign}{left}}{%
 			\ifthenelse{\equal{#1}{C}}{%
-			\raggedright\drawphoto
+				\raggedright\drawphoto%
+				\undef\@photo%
 			}{}
 		}{}
 	\end{minipage}
@@ -690,7 +687,8 @@
 		}{%
 		\ifthenelse{\equal{\@photoalign}{right}}{%
 			\ifthenelse{\equal{#1}{C}}{%
-			\raggedleft\drawphoto
+				\raggedleft\drawphoto%
+				\undef\@photo%
 			}{}
 		}{}
 	}
@@ -744,13 +742,10 @@
 		\sbox{\sidebarBox}{
 		\begin{minipage}[t]{\@textblockWidth}
 			\leavevmode % Enter horizontal mode
-			\ifthenelse{\isundefined{\@photo}}{%
-			}{%
-				\ifthenelse{\isundefined{\@edgeradius}}{%
-					{\centering\drawphoto\par}
-					\vspace{\acvSectionTopSkip}
-					}{}
-			}
+			\ifthenelse{\equal{\@photoalign}{sidebar}}{%
+				\centering\drawphoto\undef\@photo\par
+				\vspace{\acvSectionTopSkip}
+			}{}
 			\ifthenelse{\isundefined{\@aboutMe}}{%
 				}{%
 				\vspace{-\acvSectionTopSkip}%
@@ -808,7 +803,6 @@
 		
 		% Delete objects
 		\undef\sidebarBox
-		\undef\@photo
 		\undef\@aboutMe
 		\undef\skills
 		\undef\@userContent
@@ -827,91 +821,16 @@
 	\fancyfoot{}
 		
 	% Set footer position
-	\ifthenelse{\isundefined{\@sidebarPos}}{%
-		\fancyfoot[L]{\footerstyle{\raggedright#1}}
-		\fancyfoot[C]{\footerstyle{\centering#2}}
-		\fancyfoot[R]{\footerstyle{\raggedleft#3}}
-		}{%
-		% Create saveboxes
-		\newsavebox{\@leftFoot}
-		\newsavebox{\@centerFoot}
-		\newsavebox{\@rightFoot}
-		\newsavebox{\@footerBox}
-		\sbox{\@leftFoot}{#1}
-		\sbox{\@centerFoot}{#2}
-		\sbox{\@rightFoot}{#3}
-	
-		% Get savebox widths
-		\newdimen\@leftFootwd
-		\newdimen\@centerFootwd
-		\newdimen\@rightFootwd
-		\@leftFootwd = \wd\@leftFoot
-		\@centerFootwd = \wd\@centerFoot
-		\@rightFootwd = \wd\@rightFoot
-	
-		% Calculate minipage widths
-		\ifdim \@leftFootwd > \@rightFootwd%
-			\ifdim \@centerFootwd > \dimexpr\@headerWidth-2\@leftFootwd\relax%
-				\@rightFootwd = \dimexpr\@headerWidth-\@leftFootwd\relax
-				\@centerFootwd = 0pt
-				\ClassWarning{ReCeiVe}{Left footer is too large, therefore centered footer was omitted.}
-			\else%
-				\@rightFootwd = \@leftFootwd
-				\@centerFootwd = \dimexpr\@headerWidth-2\@leftFootwd\relax
-			\fi
-		\else%
-			\ifdim \@centerFootwd > \dimexpr\@headerWidth-2\@rightFootwd\relax%
-				\@leftFootwd = \dimexpr\@headerWidth-\@rightFootwd\relax
-				\@centerFootwd = 0pt
-				\ClassWarning{ReCeiVe}{Right footer is too large, therefore centered footer was omitted.}
-			\else%
-				\@leftFootwd = \@rightFootwd
-				\@centerFootwd = \dimexpr\@headerWidth-2\@rightFootwd\relax
-			\fi
-		\fi	
-		
-		% Creat footer box
-		\savebox{\@footerBox}[\@headerWidth]{%
-			\footerstyle{%
-			\begin{minipage}[t]{\@leftFootwd}
-				\ifdim \@leftFootwd > 0pt%
-					\ifdim 0pt = \wd\@leftFoot%
-						\,%
-					\else
-						\raggedright#1%
-					\fi
-				\fi
-			\end{minipage}
-			\begin{minipage}[t]{\@centerFootwd}
-				\ifdim \@centerFootwd > 0pt%
-					\ifdim 0pt = \wd\@centerFoot%
-						\,%
-					\else
-						\centering#2%
-					\fi
-				\fi
-			\end{minipage}
-			\begin{minipage}[t]{\@rightFootwd}
-				\ifdim \@rightFootwd > 0pt%
-					\ifdim 0pt = \wd\@rightFoot%
-						\,%
-					\else
-						\raggedleft#3%
-					\fi
-				\fi
-			\end{minipage}
-			}
-		}
-		
-		\ifthenelse{\equal{\@sidebarPos}{left}}{%
-			\fancyfoot[R]{% Print usebox
-				\makebox[\textwidth][r]{\usebox{\@footerBox}}
-			}}{%
-			\fancyfoot[L]{% Print usebox
-				\makebox[\textwidth][l]{\usebox{\@footerBox}}
-			}
-		}
+	\ifthenelse{\equal{\@sidebarPos}{left}}{%
+		\fancyhfoffset[LE]{\@sidebarWidth+\acvSidebarSep}
+	}{%
+		\ifthenelse{\equal{\@sidebarPos}{right}}{%
+			\fancyhfoffset[RO]{\@sidebarWidth+\acvSidebarSep}
+		}{}
 	}
+	\fancyfoot[L]{\footerstyle{\raggedright#1}}
+	\fancyfoot[C]{\footerstyle{\centering#2}}
+	\fancyfoot[R]{\footerstyle{\raggedleft#3}}
 }
 
 %-------------------------------------------------------------------------------
