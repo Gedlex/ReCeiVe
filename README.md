@@ -46,7 +46,7 @@ To load a picture use the following command
 ```
 * `Shape` - Shape of the image (optional) (`circle`, `rectangle`)
 * `Frame` -  Define whether the image is framed or not (optional) (`edge`, `noedge`)
-* `Fill` -  Higlighte the image background with the `highlight`color (optional) (`fill`, `nofill`) !only works with png's or pdf's
+* `Fill` -  Higlighte the image background with the `highlight` color (optional) (`fill`, `nofill`) !only works with png's or pdf's
 * `Position` - Position of the image (optional) (`left`, `right`, `sidebar`) !left and right only works with centred header
 * `Size` - Size of the image e.g. 2.5 cm
 * `Image Path` Path where the image is stored e.g. pics/pp2.pdf
