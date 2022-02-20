@@ -92,3 +92,7 @@ In order to make the header one can now simply use the following command
 ```
 * `Position` Position of the header (`L` = left, `C` = right)
 Attention! Only works after `\begin{document}`
+
+## Sidebar
+In order to generate the sidebar a number of optional arguments must first be specified
+```\aboutMe[<Title>]{<Some Words to Describe Yourself>}``` `Title` is optional
