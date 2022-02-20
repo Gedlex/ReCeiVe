@@ -90,7 +90,7 @@ In order to make the header one can now simply use the following command
 ```
 \makecvheader[<Position>]
 ```
-* `Position` Position of the header (`L` = left, `C` = right)
+* `Position` Position of the header (`L` = left, `C` = right)<br/>
 Attention! Only works after `\begin{document}`
 
 ## Sidebar
@@ -125,5 +125,5 @@ In order to make the sidebar one can now simply use the following command
 ```
 * `xOffset` Offset in x direction e.g xOffset/15pt
 * `yOffset` Offset in y direction e.g yOffset/-15pt
-* `Corners` Corner radius (`noRadius`, `radius`)
+* `Corners` Corner radius (`noRadius`, `radius`)<br/>
 Attention! Only works after `\begin{document}`
