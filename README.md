@@ -60,3 +60,28 @@ Set a background that is loaded on every page
 * `Background Image Path` Path to the background image e.g. pics/background5.pdf
 
 ## Header
+In order to generate the header a number of optional arguments must first be specified
+
+### Contact Information
+```
+\name{<Forename>}{<Surname>}
+\address{<Adress>}
+\mobile{<Mobile Number>}
+\email{<Email Adress>}
+\github{<Github ID>}
+\linkedin{<Linkedin ID>}
+\homepage{<Homepage URL>}
+\twitter{<Twitter ID>}
+\xing{<Xing ID>}
+\stackoverflow{<SO ID>}{<SO Name>}
+\skype{<Skype ID>}
+\reddit{<Reddit ID>}
+\extrainfo{<Some Info>}
+```
+
+### Further Information
+```
+\position{<Current or Last Position>}
+\headwords{<A Few Words About Yourself>}
+\quote{<Some Quote>}
+```
