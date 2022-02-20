@@ -95,5 +95,35 @@ Attention! Only works after `\begin{document}`
 
 ## Sidebar
 In order to generate the sidebar a number of optional arguments must first be specified
+```
+\aboutMe[<Section Title>]{<Content>}
+\nonProfit{<Section Title>]{<Content>}
+\userSection[<Section Title>]{<Content>}
+```
+* `Section Title` Section title (optional)
 
-```\aboutMe[<Title>]{<Some Words to Describe Yourself>}``` `Title` is optional
+### Skills
+```
+\skillset[title/<Section Title>,label/<Label>]{<Label1/Grade1>,<Label2/Grade2>, ect.}
+* `Section Title` Title of the skills section (optional)
+* `Label` Label below the skill bars (optional)
+* `Label/Grade` Skill and grade where the grade is a value from 0 to 1
+The number of Skills is variable
+```
+
+### Languages
+```
+\languages[<Section Title>]{{<Language1/Level1>},{<Language2/Level2>}, ect.}
+```
+* `Section Title` Title of the languages section (optional)
+* `Language/Level` Language and level e.g. German/Mother tongue
+
+### Make Sidebar
+In order to make the sidebar one can now simply use the following command
+```
+\makecvsidebar[xOffset/<xOffset>,yOffset/<yOffset>,<Corners>]
+```
+* `xOffset` Offset in x direction e.g xOffset/15pt
+* `yOffset` Offset in y direction e.g yOffset/-15pt
+* `Corners` Corner radius (`noRadius`, `radius`)
+Attention! Only works after `\begin{document}`
