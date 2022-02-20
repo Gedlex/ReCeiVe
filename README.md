@@ -21,7 +21,11 @@ If one wants to use a paper size other than Letter or different paper margins th
 * `Sidebar Width` - Width of the sidebar (optional). Predefined value: 6 cm
 
 ## Colors
-Change the color of text objects and highlighted objects as the font.
+Change the color of text objects and highlighted objects using HTML
+```
+\definecolor{<Color Object>}{HTML}{414141}
+```
+Or using predefined colors
 ```
 \colorlet{<Color Object>}{<Color>}
 ```
