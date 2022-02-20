@@ -27,10 +27,10 @@ Change the color of text objects and highlighted objects as the font.
 ```
 * `Color` - Predefined colors (`darkgray`, `gray`, `lightgray`, `lightblue`, `orange`, `red`, `concrete`)
 
-| Color Object | Used in |
-| :----------: | :-----: |
-| tex | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
-| darktext | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
-| graytext | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
-| lighttext | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
-| highlight | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
+| Color Object | Header | Entry | Honor | Sidebar | Letter |
+| :----------: | :----: | :---: | :---: | :-----: | :----: |
+| tex | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
+| darktext | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
+| graytext | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
+| lighttext | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
+| highlight | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
