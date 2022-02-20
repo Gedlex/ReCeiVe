@@ -42,7 +42,7 @@ Or using predefined colors
 ## Picture
 To load a picture use the following command
 ```
-\photo[<Shape>,<Frame>,<Fill>,<Position>]{Size,<Image Path>}
+\photo[<Shape>,<Frame>,<Fill>,<Position>]{<Size>,<Image Path>}
 ```
 * `Shape` - Shape of the image (`circle`, `rectangle`)
 * `Frame` -  Define whether the image is framed or not (`edge`, `noedge`)
@@ -50,3 +50,13 @@ To load a picture use the following command
 * `Position` - Position of the image (`left`, `right`, `sidebar`) (left and right only works with centred header)
 * `Size` - Size of the image e.g. 2.5 cm
 * `Image Path` Path where the image is stored e.g. pics/pp2.pdf
+
+## Background
+Set a background that is loaded on every page
+```
+\background[<Opacity>]{<Background Image Path>}
+```
+* `Opacity` Opacity of the background e.g. 0.15
+* `Background Image Path` Path to the background image e.g. pics/background5.pdf
+
+## Header
