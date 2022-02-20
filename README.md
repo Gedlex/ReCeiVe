@@ -27,10 +27,10 @@ Change the color of text objects and highlighted objects as the font.
 ```
 * `Color` - Predefined colors (`darkgray`, `gray`, `lightgray`, `lightblue`, `orange`, `red`, `concrete`)
 
-| Color Object | Header | Entry | Honor | Sidebar | Letter |
-| :----------: | :----: | :---: | :---: | :-----: | :----: |
-| tex | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
-| darktext | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
-| graytext | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
-| lighttext | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
-| highlight | *positions, socials* | *location, item* | *location* | *text* | *section, text*|
+| Color Object | Header | Footer | Entry | Honor | Sidebar | Letter |
+| :----------: | :----: | :----: | :---: | :---: | :-----: | :----: |
+| tex | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
+| darktext | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
+| graytext | - | - | *position, date* | *title, date* | - | *recipient, date, enclosure* |
+| lighttext | - | *left, center, right* | - | - | - | - |
+| highlight | *name, socials* | - | - | - | *photo, titles* | - |
