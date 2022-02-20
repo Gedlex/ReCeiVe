@@ -29,8 +29,8 @@ Change the color of text objects and highlighted objects as the font.
 
 | Color Object | Header | Footer | Entry | Honor | Sidebar | Letter |
 | :----------: | :----: | :----: | :---: | :---: | :-----: | :----: |
-| tex | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
-| darktext | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
-| graytext | - | - | *position, date* | *title, date* | - | *recipient, date, enclosure* |
-| lighttext | - | *left, center, right* | - | - | - | - |
-| highlight | *name, socials* | - | - | - | *photo, titles* | - |
+| **tex** | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
+| **darktext** | *word, quote* | - | *title* | *position* | *skills, language* | *title, name* |
+| **graytext** | - | - | *position, date* | *title, date* | - | *recipient, date, enclosure* |
+| **lighttext** | - | *left, center, right* | - | - | - | - |
+| **highlight** | *name, socials* | - | - | - | *photo, titles* | - |
