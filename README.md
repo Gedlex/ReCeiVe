@@ -4,11 +4,18 @@ The LuaLaTex class ReCeiVe provides a wide variety of possible cv structures and
 
 Credits also go to Claud D. Park aka posquit0 and Jan Vorisek on whose CV templates the ReCeiVe classe is based on.
 
-## Documentclass
+## Document Class
 
 Initialise the document class ReCeiVe.
-
 ```
 \documentclass[<Sidebar Position>]{ReCeiVe}
 ```
  * `Sidebar Position` - Position of of the sidebar (optional) (`leftPos`, `rightPos`)
+
+## Margins
+
+If one wants to use a paper size other than Letter or different paper margins than the predefined ones, one must use the following command.
+```
+\geometry[<Sidebar Width>]{<Standard Commands of the Geometry Package>}
+```
+* `Sidebar Width` - Width of the sidebar (optional). Predefined value: 6 cm
