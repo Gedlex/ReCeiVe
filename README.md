@@ -95,4 +95,5 @@ Attention! Only works after `\begin{document}`
 
 ## Sidebar
 In order to generate the sidebar a number of optional arguments must first be specified
+
 ```\aboutMe[<Title>]{<Some Words to Describe Yourself>}``` `Title` is optional
