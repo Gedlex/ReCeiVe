@@ -127,3 +127,19 @@ In order to make the sidebar one can now simply use the following command
 * `yOffset` Offset in y direction e.g yOffset/-15pt
 * `Corners` Corner radius (`noRadius`, `radius`)<br/>
 Attention! Only works after `\begin{document}`
+
+## Footer
+The footer can simply be defined using the following command
+```
+\makecvfooter(<Left Content>}{<Center Content>}{<Right Content>)
+```
+Attention! Only works after `\begin{document}`
+
+## CV Entry
+
+## Honors
+
+## Cover Letter
+
+## Multi Pages
+
