@@ -8,6 +8,6 @@ Credits also go to Claud D. Park aka posquit0 and Jan Vorisek on whose CV templa
 
 Initialise the document class ReCeiVe.
 
-'''
+```
 \documentclass[<Sidebar Position>]{ReCeiVe}
-'''
+```
