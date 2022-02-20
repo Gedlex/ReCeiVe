@@ -108,8 +108,8 @@ In order to generate the sidebar a number of optional arguments must first be sp
 ```
 * `Section Title` Title of the skills section (optional)
 * `Label` Label below the skill bars (optional)
-* `Label/Grade` Skill and grade where the grade is a value from 0 to 1
-The number of Skills is variable
+* `Label/Grade` Skill and grade where the grade is a value from `0` to `1`<br/>
+The number of skills is variable
 
 ### Languages
 ```
