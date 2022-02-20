@@ -33,7 +33,7 @@ Or using predefined colors
 
 | Color Object | Header | Footer | Entry | Honor | Sidebar | Letter |
 | :----------: | :----: | :----: | :---: | :---: | :-----: | :----: |
-| `tex` | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
+| `text` | *positions, socials* | - | *location, item* | *location* | *text* | *section, text* |
 | `darktext` | *word, quote* | - | *title* | *position* | *skills, language* | *title, name* |
 | `graytext` | - | - | *position, date* | *title, date* | - | *recipient, date, enclosure* |
 | `lighttext` | - | *left, center, right* | - | - | - | - |
