@@ -85,3 +85,10 @@ In order to generate the header a number of optional arguments must first be spe
 \headwords{<A Few Words About Yourself>}
 \quote{<Some Quote>}
 ```
+### Make Header
+In order to make the header one can now simply use the following command
+```
+\makecvheader[<Position>]
+```
+* `Position` Position of the header (`L` = left, `C` = right)
+Attention! Only works after `\begin{document}`
