@@ -19,3 +19,18 @@ If one wants to use a paper size other than Letter or different paper margins th
 \geometry[<Sidebar Width>]{<Standard Commands of the Geometry Package>}
 ```
 * `Sidebar Width` - Width of the sidebar (optional). Predefined value: 6 cm
+
+## Colors
+Change the color of text objects and highlighted objects as the font.
+```
+\colorlet{<Color Object>}{<Color>}
+```
+* `Color` - Predefined colors (`darkgray`, `gray`, `lightgray`, `lightblue`, `orange`, `red`, `concrete`)
+
+| Color Object | Used in |
+| :----------: | :-----: |
+| tex | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
+| darktext | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
+| graytext | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
+| lighttext | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
+| highlight | **header:** *positions, socials*, **entry:** *location, item*, **honors:** *location*, **sidebar text**, **letter:** *section, text*|
