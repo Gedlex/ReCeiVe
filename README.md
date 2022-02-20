@@ -38,3 +38,15 @@ Or using predefined colors
 | `graytext` | - | - | *position, date* | *title, date* | - | *recipient, date, enclosure* |
 | `lighttext` | - | *left, center, right* | - | - | - | - |
 | `highlight` | *name, socials* | - | - | - | *photo, titles* | - |
+
+## Picture
+To load a picture use the following command
+```
+\photo[<Shape>,<Frame>,<Fill>,<Position>]{Size,<Image Path>}
+```
+* `Shape` - Shape of the image (`circle`, `rectangle`)
+* `Frame` -  Define whether the image is framed or not (`edge`, `noedge`)
+* `Fill` -  Higlighte the image background with the `highlight`color (`fill`, `nofill`) (only works with png's or pdf's)
+* `Position` - Position of the image (`left`, `right`, `sidebar`) (left and right only works with centred header)
+* `Size` - Size of the image e.g. 2.5 cm
+* `Image Path` Path where the image is stored e.g. pics/pp2.pdf
