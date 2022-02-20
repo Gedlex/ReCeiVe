@@ -11,3 +11,4 @@ Initialise the document class ReCeiVe.
 ```
 \documentclass[<Sidebar Position>]{ReCeiVe}
 ```
+ * `Sidebar Position` - Position of of the sidebar (optional) (`leftPos`, `rightPos`)
