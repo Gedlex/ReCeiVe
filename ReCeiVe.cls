@@ -255,6 +255,7 @@
 
 % Cover letter
 \newcommand{\acvSignatureSkip}{20pt}
+\newcommand{\acvReciepentSkip}{10mm}
 
 %-------------------------------------------------------------------------------
 %				Commands for utility
@@ -303,8 +304,8 @@
 \newlength{\@edgeradius}
 \newlength{\@photowidth}
 \newcommand*{\drawphoto}{%
-	\ifthenelse{\isundefined{\@photo}}
-		{}{%
+	\ifthenelse{\isundefined{\@photo}}{%
+		}{%
 		\ifthenelse{\equal{\@photoshape}{circle}}{%
 			\setlength{\@photowidth}{\@photosize}
 			\setlength{\@edgeradius}{0cm}}{%
@@ -743,7 +744,7 @@
 		\begin{minipage}[t]{\@textblockWidth}
 			\leavevmode % Enter horizontal mode
 			\ifthenelse{\equal{\@photoalign}{sidebar}}{%
-				\centering\drawphoto\undef\@photo\par
+				\centering\drawphoto\par
 				\vspace{\acvSectionTopSkip}
 			}{}
 			\ifthenelse{\isundefined{\@aboutMe}}{%
@@ -779,7 +780,7 @@
 				{}{%
 				\section{\@languagestitle}%		
 				\vspace{\acvSectionContentTopSkip}%
-				\@languagesContent%
+				{\raggedright\@languagesContent\par}%
 			}
 			\ifthenelse{\isundefined{\@hobbies}}%
 				{}{%
@@ -803,6 +804,7 @@
 		
 		% Delete objects
 		\undef\sidebarBox
+		\undef\@photo
 		\undef\@aboutMe
 		\undef\skills
 		\undef\@userContent
@@ -820,17 +822,20 @@
 \newcommand*{\makecvfooter}[3]{%
 	\fancyfoot{}
 		
-	% Set footer position
-	\ifthenelse{\equal{\@sidebarPos}{left}}{%
-		\fancyhfoffset[LE]{\@sidebarWidth+\acvSidebarSep}
+	\ifthenelse{\isundefined{\@sidebarPos}}{% No sidebar
+		\fancyfoot[L]{\footerstyle{\raggedright#1}}
+		\fancyfoot[C]{\footerstyle{\centering#2}}
+		\fancyfoot[R]{\footerstyle{\raggedleft#3}}
 	}{%
-		\ifthenelse{\equal{\@sidebarPos}{right}}{%
-			\fancyhfoffset[RO]{\@sidebarWidth+\acvSidebarSep}
-		}{}
+		% Set footer position
+		\ifthenelse{\equal{\@sidebarPos}{left}}{% With sidebar
+			\fancyhfoffset[L]{\@sidebarWidth+\acvSidebarSep}
+		}{%
+			\ifthenelse{\equal{\@sidebarPos}{right}}{%
+				\fancyhfoffset[R]{\@sidebarWidth+\acvSidebarSep}
+			}{}
+		}
 	}
-	\fancyfoot[L]{\footerstyle{\raggedright#1}}
-	\fancyfoot[C]{\footerstyle{\centering#2}}
-	\fancyfoot[R]{\footerstyle{\raggedleft#3}}
 }
 
 %-------------------------------------------------------------------------------
@@ -893,9 +898,9 @@
 % Usage: \makelettertitle[L|R]
 \newcommand*{\makelettertitle}[1][L]{%
 	\ifthenelse{\equal{#1}{L}}{%
-		\raggedright\\[5mm]
+		\raggedright\par\vspace{5mm}
 	}{%
-		\raggedleft\\[5mm]
+		\raggedleft\par\vspace{5mm}
 	}
 	{\recipienttitlestyle
 	\ifthenelse{\isundefined{\@recipientname}}{}{\@recipientname\par}
@@ -905,7 +910,7 @@
 	\ifthenelse{\isundefined{\@recipientphone}}{}{\@recipientphone\par}
 	}
 	\raggedright
-	\vspace{10pt}
+	\vspace{\acvReciepentSkip}
 	\letterdatestyle{\@letterdate} \par\smallskip
 	\ifthenelse{\isundefined{\@lettertitle}}{}{\lettertitlestyle{\@lettertitle} \\[\acvSectionTopSkip]}
 	\ifthenelse{\isundefined{\@letteropening}}{}{\lettertextstyle{\@letteropening} \par\bigskip}

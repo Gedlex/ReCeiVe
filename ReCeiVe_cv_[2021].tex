@@ -38,9 +38,13 @@
 %----------------------------------------------------------------------------------------
 
 % Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right]{size,<path-to-image>}
+\newcommand{\specialcell}[2][l]{%
+	\renewcommand{\arraystretch}{.5}
+	\begin{tabular}[c]{@{}#1@{}}#2\end{tabular}
+}
 \photo[circle,edge,fill,sidebar]{2.5cm}{pics/pp2.pdf}
 \name{Ged}{Lex}
-\address{Turicum, Switzerland}
+\address{\specialcell{My very long, long, long adress with\\ street name, number postcode, country}}
 \mobile{+01 23 456 78 90}
 \email{gedlex@hotmail.ch}
 \github{gedlex}
@@ -81,6 +85,7 @@
 % Print the header
 % Usage: \makecvheader[<position>]
 \makecvheader[L]
+
 % Print the sidebar
 % Usage: \makecvsidebar[xOffset/value,yOffset/value,noRadius|radius]
 \makecvsidebar
@@ -102,7 +107,7 @@
 %----------------------------------------------------------------------------------------
 \pagebreak
 % Usage: \photo[circle|rectangle,edge|noedge,fill|nofill,left|right]{size,<path>}
-\photo[rectangle,edge,fill,sidebar]{2.5cm}{pics/pp2.pdf}
+%\photo[rectangle,edge,fill,sidebar]{2.5cm}{pics/pp2.pdf}
 \aboutMe{Something else}
 \skillset[label/0\hfill +500 h]{Ansys/.3,Abaqus/.5,Catia/.6}
 \languages{{Russian/Non},{Italian/Non}}
@@ -114,9 +119,9 @@
 	\end{itemize}
 	}
 % Usage: \makecvheader[<position>]
-\makecvheader[C]
+%\makecvheader[C]
 
 % Usage: \makecvsidebar[xOffset/value,yOffset/value,noRadius|radius]
-\makecvsidebar
+%\makecvsidebar
 
 \end{document}
