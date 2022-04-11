@@ -924,7 +924,16 @@
   \letternamestyle{\@firstname\ \@lastname}
   \ifthenelse{\isundefined{\@letterenclosure}}{}{%
       \\[20pt]
-      \letterenclosurestyle{\@letterenclname: \@letterenclosure} \\
+      \letterenclosurestyle{%
+		\begin{minipage}[t]{\widthof{\@letterenclname: }} %
+		  \@letterenclname:
+		\end{minipage} %
+		\begin{minipage}[t]{.5\textwidth} %
+		  \@for\tmp:=\@letterenclosure\do{%
+			\tmp\\
+		  }
+		\end{minipage}
+	  }
     }
 }
 
